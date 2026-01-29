@@ -1,5 +1,6 @@
 import { nodeDefinitions, fromGlobalId } from "graphql-relay";
 import { AccountModel } from "../../modules/account/AccountModel";
+import { TransactionModel } from "../../modules/transaction/TransactionModel";
 
 /*
  nodeDefinitions returns the Node interface and the nodeField.
@@ -13,6 +14,10 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
 
     if (type === "Account") {
       return await AccountModel.findById(id);
+    }
+
+    if (type === "Transaction") {
+      return await TransactionModel.findById(id);
     }
 
     // Future: Add Transaction case here
@@ -29,6 +34,11 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
       // For now, it returns a name in string format, which graphql-js processes if the type is in the schema map.
       return "Account";
     }
+
+    if (obj.amount != undefined && obj.sourceAccount) {
+      return "Transaction";
+    }
+
     return null;
   },
 );

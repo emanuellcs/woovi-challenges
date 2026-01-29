@@ -3,6 +3,8 @@ import { AccountCreateMutation } from "../modules/account/mutations/AccountCreat
 import { nodeField, nodesField } from "../core/graphql/NodeInterface";
 import { AccountType } from "../modules/account/AccountType";
 import { AccountModel } from "../modules/account/AccountModel";
+import { TransactionCreateMutation } from "../modules/transaction/mutations/TransactionCreateMutation";
+import { TransactionType } from "../modules/transaction/TransactionType";
 
 const Query = new GraphQLObjectType({
   name: "Query",
@@ -22,11 +24,12 @@ const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     accountCreate: AccountCreateMutation,
+    transactionCreate: TransactionCreateMutation,
   },
 });
 
 export const schema = new GraphQLSchema({
   query: Query,
   mutation: Mutation,
-  types: [AccountType], // Explicitly provide types to resolve interfaces
+  types: [AccountType, TransactionType], // Explicitly provide types to resolve interfaces
 });
