@@ -44,3 +44,8 @@ export const TransactionType = new GraphQLObjectType<ITransaction>({
     },
   }),
 });
+
+// Define the Connection
+export const { connectionType: TransactionConnection } = connectionDefinitions({
+  nodeType: TransactionType,
+});
